@@ -470,7 +470,6 @@ abstract class PaymentModuleCore extends Module
 
                         $customized_datas = Product::getAllCustomizedDatas((int)$order->id_cart);
                         if (isset($customized_datas[$product['id_product']][$product['id_product_attribute']])) {
-                            $product_var_tpl['customization'] = array();
                             foreach ($customized_datas[$product['id_product']][$product['id_product_attribute']][$order->id_address_delivery] as $customization) {
                                 $customization_text = '';
                                 if (isset($customization['datas'][Product::CUSTOMIZE_TEXTFIELD])) {
@@ -483,7 +482,7 @@ abstract class PaymentModuleCore extends Module
                                     $customization_text .= sprintf(Tools::displayError('%d image(s)'), count($customization['datas'][Product::CUSTOMIZE_FILE])).'<br />';
                                 }
 
-                                $customization_quantity = (int)$product['customization_quantity'];
+                                $customization_quantity = (int)$customization['quantity'];
 
                                 $product_var_tpl['customization'][] = array(
                                     'customization_text' => $customization_text,
